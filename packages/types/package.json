@@ -1,0 +1,14 @@
+{
+  "name": "@taskmail/types",
+  "version": "1.0.0",
+  "description": "Shared TypeScript types for Taskmail",
+  "main": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
