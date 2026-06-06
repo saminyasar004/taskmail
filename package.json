@@ -1,25 +1,25 @@
 {
-  "name": "taskmail",
-  "version": "1.0.0",
-  "description": "Taskmail - AI email intelligence and automated task management monorepo",
-  "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "scripts": {
-    "dev:api": "npm run dev --workspace=apps/api",
-    "dev:web": "npm run dev --workspace=apps/web",
-    "dev": "npm run dev --workspaces --parallel",
-    "postinstall": "npm --workspace=@taskmail/api run prisma:generate",
-    "build": "npm run build --workspaces",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/saminyasar004/taskmail.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT"
+	"name": "taskmail",
+	"version": "1.0.0",
+	"description": "Taskmail - AI email intelligence and automated task management monorepo",
+	"private": true,
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	],
+	"scripts": {
+		"dev:api": "npm run dev --workspace=apps/api",
+		"dev:web": "npm run dev --workspace=apps/web",
+		"dev": "npm run dev --workspaces --parallel",
+		"postinstall": "npm --workspace=@taskmail/api run prisma:generate",
+		"build": "npm run build --workspaces",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/saminyasar004/taskmail.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "MIT"
 }
