@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+/* ── Design Tokens ─────────────────────────────────────────────────── */
+:root {
+  /* Background layers */
+  --bg-base:    #08090c;
+  --bg-surface: #0f1117;
+  --bg-card:    #13151e;
+  --bg-hover:   #1a1d2a;
+
+  /* Brand accent */
+  --accent-blue:   #4f8ef7;
+  --accent-violet: #8b5cf6;
+  --accent-cyan:   #22d3ee;
+  --accent-green:  #10b981;
+
+  /* Foregrounds */
+  --fg-primary:   #f1f5f9;
+  --fg-secondary: #94a3b8;
+  --fg-muted:     #475569;
+
+  /* Borders */
+  --border:       rgba(255,255,255,0.07);
+  --border-hover: rgba(255,255,255,0.14);
+
+  /* Priority colours */
+  --p-critical: #ef4444;
+  --p-high:     #f97316;
+  --p-medium:   #eab308;
+  --p-low:      #22c55e;
+  --p-info:     #64748b;
+
+  /* Glass */
+  --glass-bg:     rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+}
+
+/* ── Base Styles ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-base);
+  color: var(--fg-primary);
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+
+/* ── Typography helpers ────────────────────────────────────────────── */
+.font-display { font-family: "Outfit", sans-serif; }
+
+/* ── Glass card ────────────────────────────────────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Priority badge colours ────────────────────────────────────────── */
+.badge-CRITICAL { background: rgba(239,68,68,0.15); color: #ef4444; border-color: rgba(239,68,68,0.3); }
+.badge-HIGH     { background: rgba(249,115,22,0.15); color: #f97316; border-color: rgba(249,115,22,0.3); }
+.badge-MEDIUM   { background: rgba(234,179,8,0.15);  color: #eab308; border-color: rgba(234,179,8,0.3);  }
+.badge-LOW      { background: rgba(34,197,94,0.15);  color: #22c55e; border-color: rgba(34,197,94,0.3);  }
+.badge-INFORMATIONAL { background: rgba(100,116,139,0.15); color: #94a3b8; border-color: rgba(100,116,139,0.3); }
+
+/* ── Gradient text ─────────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #4f8ef7 0%, #8b5cf6 50%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Animated glow blobs (landing page) ───────────────────────────── */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.18;
+  animation: float 8s ease-in-out infinite;
+  pointer-events: none;
+}
+.blob-1 { width: 520px; height: 520px; background: #4f8ef7; top: -120px; left: -160px; animation-delay: 0s; }
+.blob-2 { width: 420px; height: 420px; background: #8b5cf6; top: 40%; right: -140px; animation-delay: -3s; }
+.blob-3 { width: 320px; height: 320px; background: #22d3ee; bottom: -80px; left: 30%; animation-delay: -6s; }
+
+@keyframes float {
+  0%,100% { transform: translateY(0px) scale(1); }
+  50%      { transform: translateY(-30px) scale(1.04); }
+}
+
+/* ── Fade-in animation ─────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.5s ease-out both; }
+.fade-up-1 { animation-delay: 0.1s; }
+.fade-up-2 { animation-delay: 0.2s; }
+.fade-up-3 { animation-delay: 0.3s; }
+.fade-up-4 { animation-delay: 0.4s; }
+
+/* ── Shimmer skeleton ──────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-hover) 50%, var(--bg-card) 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 8px;
+}
+
+/* ── Sidebar ───────────────────────────────────────────────────────── */
+.sidebar-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px; border-radius: 10px;
+  font-size: 14px; font-weight: 500;
+  color: var(--fg-secondary);
+  transition: all 0.18s ease;
+  text-decoration: none;
+}
+.sidebar-link:hover, .sidebar-link.active {
+  background: var(--bg-hover);
+  color: var(--fg-primary);
+}
+.sidebar-link.active { background: rgba(79,142,247,0.12); color: #4f8ef7; }
+
+/* ── Status badge ──────────────────────────────────────────────────── */
+.status-OPEN        { color: #64748b; background: rgba(100,116,139,0.12); }
+.status-IN_PROGRESS { color: #4f8ef7; background: rgba(79,142,247,0.12); }
+.status-WAITING     { color: #eab308; background: rgba(234,179,8,0.12); }
+.status-COMPLETED   { color: #10b981; background: rgba(16,185,129,0.12); }
+
