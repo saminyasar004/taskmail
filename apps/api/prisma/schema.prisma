@@ -1,0 +1,87 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String     @id @default(cuid())
+  email         String     @unique
+  name          String?
+  accessToken   String
+  refreshToken  String
+  watchExpiry   DateTime?
+  createdAt     DateTime   @default(now())
+  emails        Email[]
+  tasks         Task[]
+  briefings     Briefing[]
+}
+
+model Email {
+  id          String    @id @default(cuid())
+  gmailId     String    @unique
+  from        String
+  subject     String
+  summary     String
+  priority    Priority
+  category    Category
+  hasAction   Boolean
+  deadline    DateTime?
+  rawSnippet  String
+  processedAt DateTime  @default(now())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  task        Task?
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  priority    Priority
+  deadline    DateTime?
+  status      TaskStatus @default(OPEN)
+  source      String     @default("manual") // "manual" or "email"
+  createdAt   DateTime   @default(now())
+  userId      String
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emailId     String?    @unique
+  email       Email?     @relation(fields: [emailId], references: [id], onDelete: SetNull)
+}
+
+model Briefing {
+  id          String   @id @default(cuid())
+  date        DateTime @default(now())
+  content     Json     // Structured JSON payload representing briefing details
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Priority {
+  CRITICAL
+  HIGH
+  MEDIUM
+  LOW
+  INFORMATIONAL
+}
+
+enum Category {
+  CLIENT_REQUEST
+  SALES
+  INVOICE
+  INTERNAL
+  PARTNERSHIP
+  LEGAL
+  SUPPORT
+  ADMIN
+  OTHER
+}
+
+enum TaskStatus {
+  OPEN
+  IN_PROGRESS
+  WAITING
+  COMPLETED
+}
