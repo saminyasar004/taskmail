@@ -50,6 +50,8 @@ Dashboard updates + Daily briefing generated each morning
 
 ## System Architecture
 
+![System Architecture](docs/architecture.svg)
+
 > **Frontend** -> Next.js 15 (App Router) deployed on Vercel  
 > **Backend** -> Hono on Node.js deployed on Render  
 > **Database** -> PostgreSQL via Neon (serverless)  
@@ -57,44 +59,6 @@ Dashboard updates + Daily briefing generated each morning
 > **AI** -> Google Gemini 1.5 Flash API  
 > **Email** -> Gmail API + Google Pub/Sub push notifications  
 > **Auth** -> Google OAuth 2.0 via NextAuth.js
-
-```
-+--------------------------------------------------------------------------+
-|                            USER BROWSER                                  |
-|                                                                          |
-|   +----------------------------------------------------------------------+
-|   |              Next.js 15 Frontend (Vercel)                            |
-|   |  Dashboard  |  Task Manager  |  Daily Briefing  |  Manual Task Form  |
-|   +---------------------------+---------------------------+--------------+
-|                               |  REST API calls           |  Auth
-+-------------------------------+---------------------------+--------------+
-                                |                           |
-               +----------------v----------+   +-----------v--------------+
-               |   Hono API Server         |   |   Google OAuth 2.0       |
-               |   (Node.js / Render)      |   |   NextAuth.js            |
-               |                           |   +--------------------------+
-               |  /api/gmail/webhook  <----+--------- Google Pub/Sub
-               |  /api/tasks               |          (push notifications)
-               |  /api/emails              |
-               |  /api/briefing            |
-               +----------+----------------+
-                          |
-             +------------+------------+
-             |                         |
-  +----------v--------+   +------------v-------+
-  |  Neon Postgres    |   |  Gemini 1.5 Flash  |
-  |  + Prisma ORM     |   |                    |
-  |                   |   |  Email ->          |
-  |  users            |   |  Priority          |
-  |  emails           |   |  Deadline          |
-  |  tasks            |   |  Actions           |
-  |  briefings        |   +--------------------+
-  +-------------------+
-                                        +--------------------+
-                                        |   Gmail API        |
-                                        |   (fetch message)  |
-                                        +--------------------+
-```
 
 ---
 
